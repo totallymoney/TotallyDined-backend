@@ -2,3 +2,11 @@
 src/TotallyDinedBackend/obj
 .idea/.idea.TotallyDined-backend/.idea/workspace.xml
 .DS_Store
+.idea/.idea.TotallyDined-backend/.idea/aws.xml
+.idea/.idea.TotallyDined-backend/.idea/indexLayout.xml
+.idea/.idea.TotallyDined-backend/.idea/projectSettingsUpdater.xml
+.idea/.idea.TotallyDined-backend/.idea/vcs.xml
+src/TotallyDinedBackend/bin/Debug/net6.0/TotallyDinedBackend.deps.json
+src/TotallyDinedBackend/bin/Debug/net6.0/TotallyDinedBackend.pdb
+src/TotallyDinedBackend/bin/Debug/net6.0/TotallyDinedBackend.dll
+src/TotallyDinedBackend/bin/Debug/net6.0/TotallyDinedBackend.xml
