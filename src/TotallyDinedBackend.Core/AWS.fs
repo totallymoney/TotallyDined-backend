@@ -44,15 +44,19 @@ module DynamoDB =
         | (ex: Exception) -> Error(DynamoDBPutError ex.Message)
 
 
-    let get<'a> (client: AmazonDynamoDBClient) (getRequest: GetItemRequest) =
+    let get<'a> (client: AmazonDynamoDBClient) (request: ScanRequest) =
         try
             let response =
-                client.GetItemAsync(getRequest)
+                client.ScanAsync request
                 |> Async.AwaitTask
                 |> Async.RunSynchronously
 
-            Document.FromAttributeMap(response.Item).ToJson()
-            |> deserialize<'a>
+
+            response.Items
+            |> Seq.map (fun x ->
+                (Document.FromAttributeMap(x).ToJson()
+                 |> deserialize2<'a>))
+            |> Ok
 
         with
         | (ex: Exception) -> Error(DynamoDBPutError ex.Message)

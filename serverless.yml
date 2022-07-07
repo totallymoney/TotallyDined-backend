@@ -1,4 +1,4 @@
-service: sls-gte-lobby
+service: sls-squigglecon-totally-dined
 
 
 frameworkVersion: '3'
@@ -19,19 +19,19 @@ package:
 
 functions:
   createRestaurant:
-    handler: Lobby.Lambda::Lambda.Handler::createRestaurant
+    handler: TotallyDinedBackend.Lambda::Lambda.Handler::createRestaurant
     events:
       - http:
           path: restaurant
           method: post
   createReview:
-    handler: Lobby.Lambda::Lambda.Handler::createReview
+    handler: TotallyDinedBackend.Lambda::Lambda.Handler::createReview
     events:
       - http:
           path: review
           method: post
   getRestaurants:
-    handler: Lobby.Lambda::Lambda.Handler::getRestaurants
+    handler: TotallyDinedBackend.Lambda::Lambda.Handler::getRestaurants
     events:
       - http:
           path: restaurant

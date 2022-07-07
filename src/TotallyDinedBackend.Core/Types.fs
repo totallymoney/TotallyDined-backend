@@ -4,11 +4,13 @@ type ErrorType =
     | JsonSerializerError of string
     | DynamoDBPutError of string
     | DynamoDBQueryError of string
-    
-type RatingDynamoDbDto = { Name: string
-                           Rating: int }
 
-type Cuisine = Unknown | English | French // todo: finish
+type RatingDynamoDbDto = { Name: string; Rating: int }
+
+type Cuisine =
+    | Unknown
+    | English
+    | French // todo: finish
 
 module Cuisine =
     let toString cuisine =
@@ -16,7 +18,7 @@ module Cuisine =
         | English -> "English"
         | French -> "French"
         | Unknown -> "Unknown"
-        
+
     let fromString cuisine =
         match cuisine with
         | "English" -> English
@@ -24,8 +26,19 @@ module Cuisine =
         | "Unknown" -> Unknown
         | _ -> failwith "unrecognised cuisine string"
 
-type DietaryRequirements = Vegan | Vegetarian | Halal 
-    
+type DietaryRequirements =
+    | Vegan
+    | Vegetarian
+    | Halal
+
+module DietaryRequirements =
+    let fromString value =
+        match value with
+        | "Vegan" -> Vegan
+        | "Vegetarian" -> Vegetarian
+        | "Halal" -> Halal
+        | _ -> failwith "unrecognised dierary requirements string"
+
 type Restaurant =
     { Name: string
       Cuisine: Cuisine

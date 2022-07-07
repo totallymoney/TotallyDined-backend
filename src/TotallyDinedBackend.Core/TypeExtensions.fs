@@ -77,6 +77,8 @@ let inline (||>>) (f: 'a -> ('b * 'c)) (f': 'b -> 'c -> 'd) x = f x ||> f'
 
 let inline (>>=) f f' = Result.bind f' f
 
+let (|>>) r m = Result.map m r
+
 module Seq =
     let toDictionary xs =
         xs

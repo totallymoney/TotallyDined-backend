@@ -2,7 +2,6 @@ namespace Lambda
 
 open Amazon.Lambda.Core
 open Amazon.Lambda.APIGatewayEvents
-open Amazon.Lambda.SQSEvents
 
 [<assembly: LambdaSerializer(typeof<Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer>)>]
 do ()
@@ -13,6 +12,7 @@ module Handler =
     open TypeExtensions
     open DataAccessDto
     open Amazon.DynamoDBv2.Model
+    open System.Collections.Generic
 
     let toResponse rslt : APIGatewayProxyResponse =
         let response = APIGatewayProxyResponse()
@@ -29,44 +29,51 @@ module Handler =
 
     let createRestaurant (event: APIGatewayProxyRequest) =
         result {
-            let! lobbyInfo = deserialize<Types.Restaurant> event.Body
+            let! request = deserialize<Dto.CreateRestaurantRequest> event.Body
 
             let client = AWS.DynamoDB.getClient
 
+            let restaurant: Types.Restaurant =
+                { Name = request.Name
+                  Cuisine = request.Cuisine |> Types.Cuisine.fromString
+                  DietaryRequirements =
+                    request.DietaryRequirements
+                    |> List.map (fun x -> Types.DietaryRequirements.fromString x)
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+
             return!
-                AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant lobbyInfo)
-                |> Result.map (fun _ -> { message = sprintf "created lobby: %A" lobbyInfo })
+                AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
+                |> Result.map (fun _ -> { message = sprintf "created restaurant: %A" restaurant })
         }
         |> toResponse
 
     let createReview (event: APIGatewayProxyRequest) =
         result {
-            let! connection = deserialize<Types.Review> event.Body
+            let! review = deserialize<Types.Review> event.Body
             let client = AWS.DynamoDB.getClient
 
             return!
-                AWS.DynamoDB.put client "Lobby-dev" (ConnectionDto.fromDomain connection)
-                |> Result.map (fun _ -> { message = sprintf "created connection: %A" connection })
+                AWS.DynamoDB.put client "Restaurant-dev" (ReviewDto.fromDomain review)
+                |> Result.map (fun _ -> { message = sprintf "created connection: %A" review })
         }
         |> toResponse
 
+
+    let toDictionary map = map |> Map.toSeq |> dict |> Dictionary
+
+
     let getRestaurants (event: APIGatewayProxyRequest) =
         result {
-            let lobbyName = event.QueryStringParameters["name"]
-
             let client = AWS.DynamoDB.getClient
-
-            let attributes =
-                [ ("PartitionKey", AttributeValue(S = lobbyName))
-                  ("SortKey", AttributeValue(S = "LOBBY_INFO")) ]
-                |> Seq.toDictionary
-
-            let getRequest = GetItemRequest("Lobby-dev", attributes)
+            let getRequest = ScanRequest("Restaurant-dev")
 
             return!
                 AWS.DynamoDB.get<RestaurantDto> client getRequest
-                |> Result.map (fun dto ->
-                    { message = sprintf "get lobby"
-                      item = RestaurantDto.toDomain dto })
+                |>> Seq.groupBy (fun x -> x.PartitionKey)
+                |>> Seq.map (fun (groupName, records) -> RestaurantDto.toRestaurant (records |> List.ofSeq))
+                |>> (fun xs ->
+                    { message = sprintf "get restaurants"
+                      item = xs })
         }
         |> toResponse

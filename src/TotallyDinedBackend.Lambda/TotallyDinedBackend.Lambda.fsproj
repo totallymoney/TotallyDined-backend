@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyName>Lobby.Lambda</AssemblyName>
-    <PackageId>lobby</PackageId>
+    <AssemblyName>TotallyDinedBackend.Lambda</AssemblyName>
+    <PackageId>TotallyDinedBackend</PackageId>
     <PublishReadyToRun>true</PublishReadyToRun>
-    <RootNamespace>Lobby.Lambda</RootNamespace>
+    <RootNamespace>TotallyDinedBackend.Lambda</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj">
-      <Name>Lobby.Core.fsproj</Name>
+      <Name>TotallyDinedBackend.Core.fsproj</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
