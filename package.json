@@ -1,0 +1,10 @@
+{
+  "name": "TotallyDined-backend",
+  "repository": "https://github.com/mediaingenuity/TotallyDined-backend.git",
+  "scripts": {
+    "restore": "dotnet tool restore && dotnet paket restore",
+    "build": "dotnet build src/TotallyDinedBackend && dotnet fantomas --recurse ./",
+    "package": "dotnet lambda package \"package.zip\" -farch arm64 -pl src/TotallyDinedBackend -c Release",
+    "deploy-dev": "sls deploy --stage dev"
+  }
+}

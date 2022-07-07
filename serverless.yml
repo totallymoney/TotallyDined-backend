@@ -1,0 +1,15 @@
+service: sls-TotallyDined
+
+provider:
+  name: aws
+  runtime: dotnet6
+  architecture: arm64
+  profile: sandbox
+  stage: ${opt:stage, 'stage'}
+  region: eu-west-2
+  environment:
+    ENVIRONMENT: ${self:provider.stage}
+    DYNAMO_REGION: ${self:provider.region}
+
+package:
+  artifact: package.zip
