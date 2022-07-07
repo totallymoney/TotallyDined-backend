@@ -1,0 +1,11 @@
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/bin/Debug/net6.0/Lobby.Lambda.deps.json
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/bin/Debug/net6.0/Lobby.Lambda.dll
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/bin/Debug/net6.0/Lobby.Lambda.pdb
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/bin/Debug/net6.0/Lobby.Core.dll
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/bin/Debug/net6.0/Lobby.Core.pdb
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/TotallyDinedBackend.Lambda.fsproj.AssemblyReference.cache
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/TotallyDinedBackend.Lambda.AssemblyInfoInputs.cache
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/TotallyDinedBackend.Lambda.AssemblyInfo.fs
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/TotallyDinedBackend.Lambda.fsproj.CopyComplete
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/Lobby.Lambda.dll
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Lambda/obj/Debug/net6.0/Lobby.Lambda.pdb

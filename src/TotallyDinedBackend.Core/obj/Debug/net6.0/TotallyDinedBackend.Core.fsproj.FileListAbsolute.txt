@@ -1,0 +1,8 @@
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/bin/Debug/net6.0/Lobby.Core.deps.json
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/bin/Debug/net6.0/Lobby.Core.dll
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/bin/Debug/net6.0/Lobby.Core.pdb
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/Debug/net6.0/TotallyDinedBackend.Core.fsproj.AssemblyReference.cache
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/Debug/net6.0/TotallyDinedBackend.Core.AssemblyInfoInputs.cache
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/Debug/net6.0/TotallyDinedBackend.Core.AssemblyInfo.fs
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/Debug/net6.0/Lobby.Core.dll
+/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/Debug/net6.0/Lobby.Core.pdb

@@ -1,0 +1,80 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj": {}
+  },
+  "projects": {
+    "/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj",
+        "projectName": "Lobby.Core",
+        "projectPath": "/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj",
+        "packagesPath": "/Users/gte/.nuget/packages/",
+        "outputPath": "/Users/gte/Documents/GitHub/TotallyDined-backend/src/TotallyDinedBackend.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gte/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/sdk/6.0.301/FSharp/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AWSSDK.DynamoDBv2": {
+              "target": "Package",
+              "version": "[3.7.3.46, )",
+              "generatePathProperty": true
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.2.68, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[6.0.5, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Crossgen2.osx-arm64",
+              "version": "[6.0.6, 6.0.6]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.301/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Lobby.Core</AssemblyName>
+    <PackageId>Lobby.Core</PackageId>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <RootNamespace>Lobby.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="TypeExtensions.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="DataAccessDto.fs" />
+    <Compile Include="AWS.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.46" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.2.68" />
+  </ItemGroup>
+</Project>
