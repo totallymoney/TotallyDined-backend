@@ -1,5 +1,7 @@
 module TypeExtensions
 
+let (|>?) r f = Option.map f r
+
 let tee f x = f x x
 
 module Tuple =

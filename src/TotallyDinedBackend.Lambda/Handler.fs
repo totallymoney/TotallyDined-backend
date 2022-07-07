@@ -27,21 +27,21 @@ module Handler =
             response.StatusCode <- 500
             response
 
-    let createLobby (event: APIGatewayProxyRequest) =
+    let createRestaurant (event: APIGatewayProxyRequest) =
         result {
-            let! lobbyInfo = deserialize<Types.LobbyInfo> event.Body
+            let! lobbyInfo = deserialize<Types.Restaurant> event.Body
 
             let client = AWS.DynamoDB.getClient
 
             return!
-                AWS.DynamoDB.put client "Lobby-dev" (LobbyInfoDto.fromDomain lobbyInfo)
+                AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant lobbyInfo)
                 |> Result.map (fun _ -> { message = sprintf "created lobby: %A" lobbyInfo })
         }
         |> toResponse
 
-    let createConnection (event: APIGatewayProxyRequest) =
+    let createReview (event: APIGatewayProxyRequest) =
         result {
-            let! connection = deserialize<Types.Connection> event.Body
+            let! connection = deserialize<Types.Review> event.Body
             let client = AWS.DynamoDB.getClient
 
             return!
@@ -50,27 +50,7 @@ module Handler =
         }
         |> toResponse
 
-
-    let deleteLobby (event: APIGatewayProxyRequest) =
-        result {
-            let! body = deserialize<Lobby> event.Body
-
-            let client = AWS.DynamoDB.getClient
-
-            let attributes =
-                [ ("PartitionKey", AttributeValue(S = body.name))
-                  ("SortKey", AttributeValue(S = "LOBBY")) ]
-                |> Seq.toDictionary
-
-            let deleteRequest = DeleteItemRequest("Lobby-dev", attributes)
-
-            return!
-                AWS.DynamoDB.delete client deleteRequest
-                |> Result.map (fun _ -> { message = sprintf "delete %s" body.name })
-        }
-        |> toResponse
-
-    let getLobby (event: APIGatewayProxyRequest) =
+    let getRestaurants (event: APIGatewayProxyRequest) =
         result {
             let lobbyName = event.QueryStringParameters["name"]
 
@@ -84,47 +64,9 @@ module Handler =
             let getRequest = GetItemRequest("Lobby-dev", attributes)
 
             return!
-                AWS.DynamoDB.get<LobbyInfoDto> client getRequest
+                AWS.DynamoDB.get<RestaurantDto> client getRequest
                 |> Result.map (fun dto ->
                     { message = sprintf "get lobby"
-                      item = LobbyInfoDto.toDomain dto })
+                      item = RestaurantDto.toDomain dto })
         }
         |> toResponse
-
-
-    let sendMessage (event: APIGatewayProxyRequest) =
-        result {
-            let! request = deserialize<SendMessageRequest> event.Body
-
-            let client = AWS.DynamoDB.getClient
-
-            let! connectionDtos =
-                AWS.DynamoDB.query<ConnectionDto> client "Lobby-dev" request.Lobby DataAccessDto.connectionPrefix
-
-            let! connections =
-                connectionDtos
-                |> Result.sequence
-                |> Result.map (List.map ConnectionDto.toDomain)
-
-            let messages =
-                connections
-                |> List.map (fun c ->
-                    {| Lobby = request.Lobby
-                       Message = sprintf "%s:%s" c.ClientID request.Message
-                       ClientId = c.ClientID |})
-
-            do!
-                AWS.SQS.sendBatch
-                    AWS.SQS.getClient
-                    (System.Environment.GetEnvironmentVariable "PROCESSING_QUEUE")
-                    messages
-        }
-        |> toResponse
-
-    let processMessage (event: SQSEvent) =
-        let flaky = System.Random().Next(0, 100)
-
-        if flaky > 50 then
-            printfn "%s" (serialize event)
-        else
-            failwith (sprintf "FAILED : %s" (serialize event))
