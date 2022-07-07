@@ -4,5 +4,8 @@
     "build": "dotnet build && dotnet fantomas --recurse ./",
     "package": "dotnet lambda package \"package.zip\" -farch arm64 -pl src/TotallyDinedBackend.Lambda -c Release",
     "deploy-dev": "sls deploy --stage dev"
+  },
+  "dependencies": {
+    "serverless": "^3.19.0"
   }
 }
