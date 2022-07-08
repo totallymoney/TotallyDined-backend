@@ -27,7 +27,7 @@ module Handler =
             response.Body <- "Internal Server Error"
             response.StatusCode <- 500
             response
-            
+
     let private putRestaurant client restaurant =
         AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
         |> Result.map (fun _ -> { message = $"created restaurant: %A{restaurant}" })
@@ -85,7 +85,7 @@ module Handler =
     let seedRestaurants (event: APIGatewayProxyRequest) =
         result {
             let client = AWS.DynamoDB.getClient
-            
+
             let restaurant1: Types.Restaurant =
                 { Name = "The Old Fountain"
                   Cuisine = Cuisine.English
@@ -94,7 +94,7 @@ module Handler =
                   PriceRange = 2
                   AverageRating = 0
                   NumberOfRatings = 0 }
-                
+
             let restaurant2: Types.Restaurant =
                 { Name = "The Clove Club"
                   Cuisine = Cuisine.English
@@ -103,7 +103,7 @@ module Handler =
                   PriceRange = 4
                   AverageRating = 0
                   NumberOfRatings = 0 }
-                
+
             let restaurant3: Types.Restaurant =
                 { Name = "Cocotte Shoreditch"
                   Cuisine = Cuisine.French
