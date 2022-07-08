@@ -26,6 +26,10 @@ type Cuisine =
     | Mexican
     | American
     | Thai
+    | BBQ
+    | Desserts
+    | BubbleTea
+    | Korean
 
 module Cuisine =
     let toString cuisine =
@@ -48,6 +52,10 @@ module Cuisine =
         | Mexican -> "Mexican"
         | American -> "American"
         | Thai -> "Thai"
+        | BBQ -> "BBQ"
+        | Desserts -> "Desserts"
+        | BubbleTea -> "BubbleTea"
+        | Korean -> "Korean"
 
     let fromString cuisine =
         match cuisine with
@@ -69,6 +77,10 @@ module Cuisine =
         | "Mexican" -> Mexican
         | "American" -> American
         | "Thai" -> Thai
+        | "BBQ" -> BBQ
+        | "Desserts" -> Desserts
+        | "BubbleTea" -> BubbleTea
+        | "Korean" -> Korean
         | _ -> failwith "unrecognised cuisine string"
 
 type DietaryRequirements =

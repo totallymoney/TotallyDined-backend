@@ -27,7 +27,7 @@ module Handler =
             response.Body <- "Internal Server Error"
             response.StatusCode <- 500
             response
-            
+
     let private putRestaurant client restaurant =
         AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
         |> Result.map (fun _ -> { message = $"created restaurant: %A{restaurant}" })
@@ -107,7 +107,6 @@ module Handler =
                   PriceRange = 2
                   AverageRating = 0
                   NumberOfRatings = 0 }
-                
             let cloveClub: Types.Restaurant =
                 { Name = "The Clove Club"
                   Cuisine = Cuisine.English
@@ -116,7 +115,6 @@ module Handler =
                   PriceRange = 4
                   AverageRating = 0
                   NumberOfRatings = 0 }
-                
             let cocotte: Types.Restaurant =
                 { Name = "Cocotte Shoreditch"
                   Cuisine = Cuisine.French
