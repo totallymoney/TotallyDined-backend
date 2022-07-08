@@ -130,3 +130,8 @@ module ReviewDto =
           PriceRange = None
           Rating = record.Rating |> Some
           ReviewComment = record.Comment |> Some }
+        
+    let toDomain (record: RestaurantDto): Review =
+        { Name = record.PartitionKey
+          Rating = record.Rating |> Option.defaultValue 0
+          Comment = record.ReviewComment |> Option.defaultValue "" }

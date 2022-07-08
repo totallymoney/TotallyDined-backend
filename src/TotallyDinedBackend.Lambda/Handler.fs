@@ -81,12 +81,25 @@ module Handler =
                     |> toResponseDto)
         }
         |> toResponse
+        
+    let getReviews (event: APIGatewayProxyRequest) =
+        result {
+            let client = AWS.DynamoDB.getClient
+            let getRequest = ScanRequest("Restaurant-dev")
+            
+            let found, restaurantName = event.PathParameters.TryGetValue "Name"
+            return!
+                AWS.DynamoDB.get<RestaurantDto> client getRequest
+                |>> Seq.filter (fun x -> x.PartitionKey = restaurantName)
+                |>> Seq.map ReviewDto.toDomain
+        }
+        |> toResponse
 
     let seedRestaurants (event: APIGatewayProxyRequest) =
         result {
             let client = AWS.DynamoDB.getClient
             
-            let restaurant1: Types.Restaurant =
+            let oldFountain: Types.Restaurant =
                 { Name = "The Old Fountain"
                   Cuisine = Cuisine.English
                   DietaryRequirements = []
@@ -95,7 +108,7 @@ module Handler =
                   AverageRating = 0
                   NumberOfRatings = 0 }
                 
-            let restaurant2: Types.Restaurant =
+            let cloveClub: Types.Restaurant =
                 { Name = "The Clove Club"
                   Cuisine = Cuisine.English
                   DietaryRequirements = []
@@ -104,7 +117,7 @@ module Handler =
                   AverageRating = 0
                   NumberOfRatings = 0 }
                 
-            let restaurant3: Types.Restaurant =
+            let cocotte: Types.Restaurant =
                 { Name = "Cocotte Shoreditch"
                   Cuisine = Cuisine.French
                   DietaryRequirements = []
@@ -112,10 +125,50 @@ module Handler =
                   PriceRange = 2
                   AverageRating = 0
                   NumberOfRatings = 0 }
+                
+            let grind: Types.Restaurant =
+                { Name = "Grind"
+                  Cuisine = Cuisine.Coffee
+                  DietaryRequirements = []
+                  Address = "213 Old St, London EC1V 9NR"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+                
+            let ozone: Types.Restaurant =
+                { Name = "Ozone Coffee Roasters, Shoreditch"
+                  Cuisine = Cuisine.Coffee
+                  DietaryRequirements = []
+                  Address = "11 Leonard St, London EC2A 4AQ"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+                
+            let boneDaddies: Types.Restaurant =
+                { Name = "Bone Daddies Old Street"
+                  Cuisine = Cuisine.Japanese
+                  DietaryRequirements = []
+                  Address = "The Bower, 211 Old St, London EC1V 9NU"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+                  
+            let wahaca: Types.Restaurant =
+                { Name = "Wahaca Shoreditch"
+                  Cuisine = Cuisine.Mexican
+                  DietaryRequirements = []
+                  Address = "140 Tabernacle St, London EC2A 4SD"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
 
-            let! res1 = putRestaurant client restaurant1
-            let! res2 = putRestaurant client restaurant2
-            let! res3 = putRestaurant client restaurant3
-            return res3
+            let! res1 = putRestaurant client oldFountain
+            let! res2 = putRestaurant client cloveClub
+            let! res3 = putRestaurant client cocotte
+            let! res4 = putRestaurant client grind
+            let! res5 = putRestaurant client ozone
+            let! res6 = putRestaurant client boneDaddies
+            let! res7 = putRestaurant client wahaca
+            return res7
         }
         |> toResponse
