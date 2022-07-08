@@ -107,6 +107,7 @@ module Handler =
                   PriceRange = 2
                   AverageRating = 0
                   NumberOfRatings = 0 }
+                
             let cloveClub: Types.Restaurant =
                 { Name = "The Clove Club"
                   Cuisine = Cuisine.English
@@ -115,6 +116,7 @@ module Handler =
                   PriceRange = 4
                   AverageRating = 0
                   NumberOfRatings = 0 }
+                
             let cocotte: Types.Restaurant =
                 { Name = "Cocotte Shoreditch"
                   Cuisine = Cuisine.French
