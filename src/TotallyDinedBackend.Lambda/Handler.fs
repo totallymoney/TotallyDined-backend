@@ -2,6 +2,7 @@ namespace Lambda
 
 open Amazon.Lambda.Core
 open Amazon.Lambda.APIGatewayEvents
+open Types
 
 [<assembly: LambdaSerializer(typeof<Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer>)>]
 do ()
@@ -26,6 +27,10 @@ module Handler =
             response.Body <- "Internal Server Error"
             response.StatusCode <- 500
             response
+            
+    let private putRestaurant client restaurant =
+        AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
+        |> Result.map (fun _ -> { message = $"created restaurant: %A{restaurant}" })
 
     let createRestaurant (event: APIGatewayProxyRequest) =
         result {
@@ -44,9 +49,7 @@ module Handler =
                   AverageRating = 0
                   NumberOfRatings = 0 }
 
-            return!
-                AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
-                |> Result.map (fun _ -> { message = $"created restaurant: %A{restaurant}" })
+            return! putRestaurant client restaurant
         }
         |> toResponse
 
@@ -74,5 +77,43 @@ module Handler =
                 AWS.DynamoDB.get<RestaurantDto> client getRequest
                 |>> Seq.groupBy (fun x -> x.PartitionKey)
                 |>> Seq.map (fun (groupName, records) -> RestaurantDto.toRestaurant (records |> List.ofSeq) |> toResponseDto)
+        }
+        |> toResponse
+
+    let seedRestaurants (event: APIGatewayProxyRequest) =
+        result {
+            let client = AWS.DynamoDB.getClient
+            
+            let restaurant1: Types.Restaurant =
+                { Name = "The Old Fountain"
+                  Cuisine = Cuisine.English
+                  DietaryRequirements = []
+                  Address = "3 Baldwin St, London EC1V 9NU"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+                
+            let restaurant2: Types.Restaurant =
+                { Name = "The Clove Club"
+                  Cuisine = Cuisine.English
+                  DietaryRequirements = []
+                  Address = "Shoreditch Town Hall, 380 Old St, London EC1V 9LT"
+                  PriceRange = 4
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+                
+            let restaurant3: Types.Restaurant =
+                { Name = "Cocotte Shoreditch"
+                  Cuisine = Cuisine.French
+                  DietaryRequirements = []
+                  Address = "8 Hoxton Square, London N1 6NU"
+                  PriceRange = 2
+                  AverageRating = 0
+                  NumberOfRatings = 0 }
+
+            let! res1 = putRestaurant client restaurant1
+            let! res2 = putRestaurant client restaurant2
+            let! res3 = putRestaurant client restaurant3
+            return res3
         }
         |> toResponse
