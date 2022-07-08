@@ -19,9 +19,13 @@ type RestaurantDto =
       ReviewComment: string option }
 
 let averageRating dtos =
-    dtos
-    |> List.filter (fun x -> x.Rating.IsSome)
-    |> List.averageBy (fun x -> x.Rating.Value |> float)
+    let ratings =
+        dtos
+        |> List.filter (fun x -> x.Rating.IsSome)
+    
+    if ratings.Length = 0
+    then 0 |> float
+    else ratings |> List.averageBy (fun x -> x.Rating.Value |> float)
 
 module Constants =
     let restaurant = "RESTAURANT"

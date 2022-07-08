@@ -71,7 +71,7 @@ module Handler =
             return!
                 AWS.DynamoDB.get<RestaurantDto> client getRequest
                 |>> Seq.groupBy (fun x -> x.PartitionKey)
-                |>> Seq.map (fun (groupName, records) -> RestaurantDto.toRestaurant (records |> List.ofSeq))
+                |>> Seq.map (fun (groupName, records) -> RestaurantDto.toRestaurant (records |> List.ofSeq) |> toResponseDto)
                 |>> (fun xs ->
                     { message = sprintf "get restaurants"
                       item = xs })

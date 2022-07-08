@@ -15,7 +15,7 @@ provider:
       Resource: !GetAtt RestaurantTable.Arn
 
 package:
-  artifact: bin/Release/net6.0/deploy-package.zip
+  artifact: package.zip
 
 functions:
   createRestaurant:

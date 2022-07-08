@@ -38,6 +38,12 @@ module DietaryRequirements =
         | "Vegetarian" -> Vegetarian
         | "Halal" -> Halal
         | _ -> failwith "unrecognised dierary requirements string"
+        
+    let toString dietaryRequirement =
+        match dietaryRequirement with
+        | Vegan -> "Vegan"
+        | Vegetarian -> "Vegetarian"
+        | Halal -> "Halal"
 
 type Restaurant =
     { Name: string
