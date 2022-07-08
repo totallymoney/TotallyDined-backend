@@ -5,6 +5,7 @@
     <PackageId>TotallyDinedBackend.Core</PackageId>
     <PublishReadyToRun>true</PublishReadyToRun>
     <RootNamespace>TotallyDinedBackend.Core</RootNamespace>
+    <WarningsAsErrors>FS0025</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="TypeExtensions.fs" />

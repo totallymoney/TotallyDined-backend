@@ -5,6 +5,7 @@
     <PackageId>TotallyDinedBackend</PackageId>
     <PublishReadyToRun>true</PublishReadyToRun>
     <RootNamespace>TotallyDinedBackend.Lambda</RootNamespace>
+    <WarningsAsErrors>FS0025</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../TotallyDinedBackend.Core/TotallyDinedBackend.Core.fsproj">

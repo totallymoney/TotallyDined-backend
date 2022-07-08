@@ -10,20 +10,65 @@ type RatingDynamoDbDto = { Name: string; Rating: int }
 type Cuisine =
     | Unknown
     | English
-    | French 
+    | French
+    | Japanese
+    | Chinese
+    | Greek
+    | Lebanese
+    | Moroccan
+    | Turkish
+    | Spanish
+    | Italian
+    | Mediterranean
+    | Indian
+    | African
+    | Coffee
+    | Mexican
+    | American
+    | Thai
 
 module Cuisine =
     let toString cuisine =
         match cuisine with
+        | Unknown -> "Unknown"
         | English -> "English"
         | French -> "French"
-        | Unknown -> "Unknown"
+        | Japanese -> "Japanese"
+        | Chinese -> "Chinese"
+        | Greek -> "Greek"
+        | Lebanese -> "Lebanese"
+        | Moroccan -> "Moroccan"
+        | Turkish -> "Turkish"
+        | Spanish -> "Spanish"
+        | Italian -> "Italian"
+        | Mediterranean -> "Mediterranean"
+        | Indian -> "Indian"
+        | African -> "African"
+        | Coffee -> "Coffee"
+        | Mexican -> "Mexican"
+        | American -> "American"
+        | Thai -> "Thai"
 
     let fromString cuisine =
         match cuisine with
+        | "Unknown" -> Unknown
         | "English" -> English
         | "French" -> French
-        | "Unknown" -> Unknown
+        | "Japanese" -> Japanese
+        | "Chinese" -> Chinese
+        | "Greek" -> Greek
+        | "Lebanese" -> Lebanese
+        | "Moroccan" -> Moroccan
+        | "Turkish" -> Turkish
+        | "Spanish" -> Spanish
+        | "Italian" -> Italian
+        | "Mediterranean" -> Mediterranean
+        | "Indian" -> Indian
+        | "African" -> African
+        | "Coffee" -> Coffee
+        | "Mexican" -> Mexican
+        | "American" -> American
+        | "Thai" -> Thai
         | _ -> failwith "unrecognised cuisine string"
 
 type DietaryRequirements =
@@ -40,7 +85,7 @@ module DietaryRequirements =
         | "Halal" -> Halal
         | "GlutenFree" -> GlutenFree
         | _ -> failwith "unrecognised dierary requirements string"
-        
+
     let toString dietaryRequirement =
         match dietaryRequirement with
         | Vegan -> "Vegan"

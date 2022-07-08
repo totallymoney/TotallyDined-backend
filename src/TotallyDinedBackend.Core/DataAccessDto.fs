@@ -23,13 +23,13 @@ type RestaurantDto =
       ReviewComment: string option }
 
 let averageRating dtos =
-    let ratings =
-        dtos
-        |> List.filter (fun x -> x.Rating.IsSome)
-    
-    if ratings.Length = 0
-    then 0 |> float
-    else ratings |> List.averageBy (fun x -> x.Rating.Value |> float)
+    let ratings = dtos |> List.filter (fun x -> x.Rating.IsSome)
+
+    if ratings.Length = 0 then
+        0 |> float
+    else
+        ratings
+        |> List.averageBy (fun x -> x.Rating.Value |> float)
 
 module Constants =
     let restaurant = "RESTAURANT"
@@ -50,8 +50,14 @@ module RestaurantDto =
             record.DietaryRequirements
             |> List.contains Vegetarian
             |> Some
-          IsHalal = record.DietaryRequirements |> List.contains Halal |> Some
-          IsGlutenFree = record.DietaryRequirements |> List.contains GlutenFree |> Some
+          IsHalal =
+            record.DietaryRequirements
+            |> List.contains Halal
+            |> Some
+          IsGlutenFree =
+            record.DietaryRequirements
+            |> List.contains GlutenFree
+            |> Some
           Address = record.Address |> Some
           PriceRange = record.PriceRange |> Some
           Rating = None

@@ -22,11 +22,13 @@ type CreateRestaurantRequest =
       PriceRange: int
       Address: string }
 
-let toResponseDto (restaurant: Restaurant): RestaurantResponseDto =
+let toResponseDto (restaurant: Restaurant) : RestaurantResponseDto =
     { Name = restaurant.Name
       Address = restaurant.Address
       PriceRange = restaurant.PriceRange
       Cuisine = restaurant.Cuisine |> Cuisine.toString
-      DietaryRequirements = restaurant.DietaryRequirements |> List.map DietaryRequirements.toString
+      DietaryRequirements =
+        restaurant.DietaryRequirements
+        |> List.map DietaryRequirements.toString
       AverageRating = restaurant.AverageRating
       NumberOfRatings = restaurant.NumberOfRatings }
