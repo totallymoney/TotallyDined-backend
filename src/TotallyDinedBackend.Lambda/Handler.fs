@@ -44,7 +44,7 @@ module Handler =
 
             return!
                 AWS.DynamoDB.put client "Restaurant-dev" (RestaurantDto.fromRestaurant restaurant)
-                |> Result.map (fun _ -> { message = sprintf "created restaurant: %A" restaurant })
+                |> Result.map (fun _ -> { message = $"created restaurant: %A{restaurant}" })
         }
         |> toResponse
 
@@ -55,7 +55,7 @@ module Handler =
 
             return!
                 AWS.DynamoDB.put client "Restaurant-dev" (ReviewDto.fromDomain review)
-                |> Result.map (fun _ -> { message = sprintf "created connection: %A" review })
+                |> Result.map (fun _ -> { message = $"created review: %A{review}" })
         }
         |> toResponse
 
@@ -72,8 +72,5 @@ module Handler =
                 AWS.DynamoDB.get<RestaurantDto> client getRequest
                 |>> Seq.groupBy (fun x -> x.PartitionKey)
                 |>> Seq.map (fun (groupName, records) -> RestaurantDto.toRestaurant (records |> List.ofSeq) |> toResponseDto)
-                |>> (fun xs ->
-                    { message = sprintf "get restaurants"
-                      item = xs })
         }
         |> toResponse
