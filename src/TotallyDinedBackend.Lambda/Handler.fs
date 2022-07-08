@@ -87,10 +87,10 @@ module Handler =
             let client = AWS.DynamoDB.getClient
             let getRequest = ScanRequest("Restaurant-dev")
             
-            let found, restaurantName = event.PathParameters.TryGetValue "Name"
+            let _, restaurantName = event.PathParameters.TryGetValue "name"
             return!
                 AWS.DynamoDB.get<RestaurantDto> client getRequest
-                |>> Seq.filter (fun x -> x.PartitionKey = restaurantName)
+                |>> Seq.filter (fun x -> x.PartitionKey = restaurantName && x.Type = Constants.review)
                 |>> Seq.map ReviewDto.toDomain
         }
         |> toResponse

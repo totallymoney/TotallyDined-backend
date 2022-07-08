@@ -36,6 +36,12 @@ functions:
       - http:
           path: restaurant
           method: get
+  getReviews:
+    handler: TotallyDinedBackend.Lambda::Lambda.Handler::getReviews
+    events: 
+      - http:
+          path: reviews/{name}
+          method: get
   seedRestaurants:
     handler: TotallyDinedBackend.Lambda::Lambda.Handler::seedRestaurants
     events:
