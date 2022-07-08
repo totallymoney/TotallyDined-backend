@@ -90,6 +90,14 @@ module RestaurantDto =
                 if restaurantDto.IsVegetarian.IsSome
                    && restaurantDto.IsVegetarian.Value then
                     yield Vegetarian
+                    
+                if restaurantDto.IsHalal.IsSome
+                   && restaurantDto.IsHalal.Value then
+                    yield Halal
+
+                if restaurantDto.IsGlutenFree.IsSome
+                   && restaurantDto.IsGlutenFree.Value then
+                    yield GlutenFree
             }
 
         { Name = restaurantDto.PartitionKey
