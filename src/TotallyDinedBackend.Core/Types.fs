@@ -10,7 +10,7 @@ type RatingDynamoDbDto = { Name: string; Rating: int }
 type Cuisine =
     | Unknown
     | English
-    | French // todo: finish
+    | French 
 
 module Cuisine =
     let toString cuisine =
@@ -30,6 +30,7 @@ type DietaryRequirements =
     | Vegan
     | Vegetarian
     | Halal
+    | GlutenFree
 
 module DietaryRequirements =
     let fromString value =
@@ -37,6 +38,7 @@ module DietaryRequirements =
         | "Vegan" -> Vegan
         | "Vegetarian" -> Vegetarian
         | "Halal" -> Halal
+        | "GlutenFree" -> GlutenFree
         | _ -> failwith "unrecognised dierary requirements string"
         
     let toString dietaryRequirement =
@@ -44,11 +46,14 @@ module DietaryRequirements =
         | Vegan -> "Vegan"
         | Vegetarian -> "Vegetarian"
         | Halal -> "Halal"
+        | GlutenFree -> "GlutenFree"
 
 type Restaurant =
     { Name: string
       Cuisine: Cuisine
       DietaryRequirements: DietaryRequirements list
+      Address: string
+      PriceRange: int
       AverageRating: int
       NumberOfRatings: int }
 

@@ -39,6 +39,8 @@ module Handler =
                   DietaryRequirements =
                     request.DietaryRequirements
                     |> List.map (fun x -> Types.DietaryRequirements.fromString x)
+                  Address = request.Address
+                  PriceRange = request.PriceRange
                   AverageRating = 0
                   NumberOfRatings = 0 }
 

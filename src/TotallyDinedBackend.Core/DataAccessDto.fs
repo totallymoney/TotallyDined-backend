@@ -15,6 +15,10 @@ type RestaurantDto =
       Cuisine: string option
       IsVegan: bool option
       IsVegetarian: bool option
+      IsHalal: bool option
+      IsGlutenFree: bool option
+      Address: string option
+      PriceRange: int option
       Rating: int option
       ReviewComment: string option }
 
@@ -46,6 +50,10 @@ module RestaurantDto =
             record.DietaryRequirements
             |> List.contains Vegetarian
             |> Some
+          IsHalal = record.DietaryRequirements |> List.contains Halal |> Some
+          IsGlutenFree = record.DietaryRequirements |> List.contains GlutenFree |> Some
+          Address = record.Address |> Some
+          PriceRange = record.PriceRange |> Some
           Rating = None
           ReviewComment = None }
 
@@ -56,6 +64,10 @@ module RestaurantDto =
           Cuisine = None
           IsVegan = None
           IsVegetarian = None
+          IsHalal = None
+          IsGlutenFree = None
+          Address = None
+          PriceRange = None
           Rating = record.Rating |> Some
           ReviewComment = record.Comment |> Some }
 
@@ -85,9 +97,10 @@ module RestaurantDto =
             restaurantDto.Cuisine |>? fromString
             |> Option.defaultValue Unknown
           DietaryRequirements = dietaryRequirements |> List.ofSeq
+          Address = restaurantDto.Address |> Option.defaultValue ""
+          PriceRange = restaurantDto.PriceRange |> Option.defaultValue 0
           AverageRating = reviews |> averageRating |> int
           NumberOfRatings = reviews |> List.length }
-
 
 module ReviewDto =
     let fromDomain (record: Review) =
@@ -97,5 +110,9 @@ module ReviewDto =
           Cuisine = None
           IsVegan = None
           IsVegetarian = None
+          IsHalal = None
+          IsGlutenFree = None
+          Address = None
+          PriceRange = None
           Rating = record.Rating |> Some
           ReviewComment = record.Comment |> Some }
