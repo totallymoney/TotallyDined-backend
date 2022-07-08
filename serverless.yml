@@ -36,6 +36,12 @@ functions:
       - http:
           path: restaurant
           method: get
+  seedRestaurants:
+    handler: TotallyDinedBackend.Lambda::Lambda.Handler::seedRestaurants
+    events:
+      - http:
+          path: seed
+          method: post
 
 resources:
   Resources:
